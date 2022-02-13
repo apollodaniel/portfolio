@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/responsive/Components/AnimatedCircularProgressIndicator.dart';
+import 'package:portfolio/responsive/Components/Drawer/AnimatedCircularProgressIndicator.dart';
 
 class Skills extends StatelessWidget {
   const Skills({

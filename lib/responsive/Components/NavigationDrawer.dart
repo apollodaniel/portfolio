@@ -1,15 +1,14 @@
 import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/Home.dart';
-import 'package:portfolio/responsive/Components/AnimatedCircularProgressIndicator.dart';
-import 'package:portfolio/responsive/Components/Coding.dart';
-import 'package:portfolio/responsive/Components/ContentBase.dart';
-import 'package:portfolio/responsive/Components/InfoLoca.dart';
-import 'package:portfolio/responsive/Components/Knowledge.dart';
-import 'package:portfolio/responsive/Components/Local.dart';
-import 'package:portfolio/responsive/Components/MyInfo.dart';
-import 'package:portfolio/responsive/Components/Skills.dart';
+import 'package:portfolio/responsive/Components/Banner/MyInfo.dart';
+import 'package:portfolio/responsive/Components/Drawer/Coding.dart';
 import 'dart:js' as js;
+
+import 'package:portfolio/responsive/Components/Drawer/ContentBase.dart';
+import 'package:portfolio/responsive/Components/Drawer/Knowledge.dart';
+import 'package:portfolio/responsive/Components/Drawer/Local.dart';
+import 'package:portfolio/responsive/Components/Drawer/Skills.dart';
 
 class NavigationDrawer extends StatefulWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
