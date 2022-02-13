@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/responsive/Components/Drawer/InfoLoca.dart';
+import 'package:portfolio/responsive/Components/Drawer/InfoLocal.dart';
 
 class Local extends StatelessWidget {
   const Local({

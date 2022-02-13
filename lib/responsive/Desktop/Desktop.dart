@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/responsive/Components/Desktop/DesktopContent.dart';
 import 'package:portfolio/responsive/Components/NavigationDrawer.dart';
 
 class Desktop extends StatefulWidget {
@@ -21,7 +22,7 @@ class _DesktopState extends State<Desktop> {
             child: Row(
               children: [
                 Expanded(flex: 2, child: NavigationDrawer()),
-                Expanded(flex: 9, child: Text("A")),
+                Expanded(flex: 9, child: DesktopContent()),
               ],
             ),
           ),

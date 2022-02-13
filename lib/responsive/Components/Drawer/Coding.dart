@@ -19,7 +19,7 @@ class Coding extends StatelessWidget {
         SizedBox(
           height: 16,
         ),
-        CustomLinearProgressBar(title: "Python", percentage: 0.45),
+        CustomLinearProgressBar(title: "Python", percentage: 0.3),
         SizedBox(
           height: 16,
         ),
