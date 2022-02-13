@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/responsive/Components/Banner/KnowledgeItem.dart';
+import 'package:portfolio/responsive/Components/Drawer/KnowledgeItem.dart';
 
 class Knowledge extends StatelessWidget {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/responsive/Components/Banner/CustomLinearProgressBar.dart';
+import 'package:portfolio/responsive/Components/Drawer/CustomLinearProgressBar.dart';
 import 'package:portfolio/responsive/Components/NavigationDrawer.dart';
 
 class Coding extends StatelessWidget {

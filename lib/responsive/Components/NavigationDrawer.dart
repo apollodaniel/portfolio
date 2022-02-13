@@ -1,13 +1,13 @@
 import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/Home.dart';
-import 'package:portfolio/responsive/Components/Banner/MyInfo.dart';
 import 'package:portfolio/responsive/Components/Drawer/Coding.dart';
 import 'dart:js' as js;
 
 import 'package:portfolio/responsive/Components/Drawer/ContentBase.dart';
 import 'package:portfolio/responsive/Components/Drawer/Knowledge.dart';
 import 'package:portfolio/responsive/Components/Drawer/Local.dart';
+import 'package:portfolio/responsive/Components/Drawer/MyInfo.dart';
 import 'package:portfolio/responsive/Components/Drawer/Skills.dart';
 
 class NavigationDrawer extends StatefulWidget {
@@ -58,6 +58,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                         height: 16,
                       ),
                       MouseRegion(
+                        cursor: SystemMouseCursors.click,
                         onEnter: (event) {
                           setState(() {
                             downloadCvHover = true;
