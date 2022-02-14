@@ -16,9 +16,27 @@ class DesktopContent extends StatefulWidget {
   _DesktopContentState createState() => _DesktopContentState();
 }
 
-class _DesktopContentState extends State<DesktopContent> {
+class _DesktopContentState extends State<DesktopContent>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _statsAnimation;
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 1))
+          ..repeat();
+
+    _statsAnimation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
+        parent: _animationController, curve: Curves.decelerate));
+  }
+
   @override
   Widget build(BuildContext context) {
+    _animationController.forward();
+
     return LayoutBuilder(
       builder: (context, constraints) {
         var height = MediaQuery.of(context).size.height;
@@ -37,11 +55,20 @@ class _DesktopContentState extends State<DesktopContent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DesktopBanner(width: width),
+                FadeTransition(
+                  opacity: _statsAnimation,
+                  child: DesktopBanner(width: width),
+                ),
                 SizedBox(
                   height: 32,
                 ),
-                DesktopStats(allStarsCount: allStarsCount),
+                FadeTransition(
+                  opacity: _statsAnimation,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 16, right: 16),
+                    child: DesktopStats(allStarsCount: allStarsCount),
+                  ),
+                ),
                 SizedBox(
                   height: 32,
                 ),

@@ -13,7 +13,7 @@ class MyInfo extends StatelessWidget {
           ),
           CircleAvatar(
             radius: 50,
-            backgroundImage: NetworkImage("images/me.jpeg"),
+            backgroundImage: NetworkImage(user.avatarUrl!),
           ),
           Spacer(),
           Text(

@@ -19,6 +19,7 @@ class NavigationDrawer extends StatefulWidget {
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
   bool downloadCvHover = false;
+  bool downloadCertificateHover = false;
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +90,50 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                             ],
                           ),
                           onTap: () {
-                            js.context
-                                .callMethod("open", ["https://google.com"]);
+                            js.context.callMethod("open", ["files/cv.pdf"]);
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        onEnter: (event) {
+                          setState(() {
+                            downloadCertificateHover = true;
+                          });
+                        },
+                        onExit: (event) {
+                          setState(() {
+                            downloadCertificateHover = false;
+                          });
+                        },
+                        child: GestureDetector(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "DOWNLOAD CERTIFICATION",
+                                style: downloadCertificateHover
+                                    ? TextStyle(color: Colors.red)
+                                    : null,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Icon(
+                                Icons.download,
+                                color: downloadCertificateHover
+                                    ? Colors.red
+                                    : null,
+                              )
+                            ],
+                          ),
+                          onTap: () {
+                            js.context.callMethod("open", [
+                              "https://udemy-certificate.s3.amazonaws.com/pdf/UC-777bfb43-fbf5-4fd2-a312-24954cfd9fc7.pdf"
+                            ]);
                           },
                         ),
                       ),
