@@ -25,7 +25,7 @@ class MobileBanner extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return AspectRatio(
-          aspectRatio: 3,
+          aspectRatio: MediaQuery.of(context).size.aspectRatio * 2,
           child: Container(
             height: constraints.maxHeight,
             padding: EdgeInsets.all(8),

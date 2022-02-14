@@ -51,7 +51,7 @@ class _MobileContentState extends State<MobileContent>
 
         return Container(
           height: height,
-          padding: EdgeInsets.all(32),
+          padding: EdgeInsets.only(left: 8, right: 8),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
