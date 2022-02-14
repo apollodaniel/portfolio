@@ -8,7 +8,7 @@ class GithubTools {
   };
 
   static var github = GitHub(
-    auth: Authentication.withToken("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"),
+    auth: Authentication.withToken("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"),
   );
 
   static Stream<Repository> getRepositories(String user) {
