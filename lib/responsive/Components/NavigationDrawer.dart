@@ -151,8 +151,9 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  js.context.callMethod("open",
-                                      ["https://www.instagram.com/_apollod/"]);
+                                  js.context.callMethod("open", [
+                                    "https://www.instagram.com/_dev_apollo/"
+                                  ]);
                                 },
                                 icon: Icon(FontAwesomeIcons.instagram)),
                             SizedBox(

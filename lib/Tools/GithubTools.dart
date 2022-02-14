@@ -3,12 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class GithubTools {
-  static Map<String, String> headers = {
-    "Authorization": "token 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"
-  };
-
   static var github = GitHub(
-    auth: Authentication.withToken("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"),
+    auth: Authentication.withToken("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"),
   );
 
   static Stream<Repository> getRepositories(String user) {
