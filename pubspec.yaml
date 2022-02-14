@@ -39,6 +39,8 @@ dependencies:
   http: ^0.13.4
   github: ^9.0.0
   awesome_icons: ^1.0.0
+  animated_text_kit: ^4.2.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -70,7 +72,6 @@ flutter:
   fonts:
   - family: Poppins
     fonts:
-      - asset: fonts/Poppins.ttf
       - asset: fonts/Poppins-Italic.ttf
         style: italic
       - asset: fonts/Poppins-Bold.ttf

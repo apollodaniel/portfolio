@@ -36,7 +36,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //getGithubInfo();
+    getGithubInfo();
   }
 
   getGithubInfo() async {
