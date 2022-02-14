@@ -35,13 +35,18 @@ class _DesktopProjectContainerState extends State<DesktopProjectContainer> {
             flex: 2,
           ),
           Text(
-            repositories[index].name,
+            repositories[index].name.length > 15
+                ? "${repositories[index].name.substring(0, 15)}..."
+                : repositories[index].name,
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
           ),
           SizedBox(
             height: 16,
           ),
-          Text(repositories[index].description,
+          Text(
+              repositories[index].description.length > 48
+                  ? "${repositories[index].description.substring(0, 48)}..."
+                  : repositories[index].description,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300)),
           Spacer(),
           Column(

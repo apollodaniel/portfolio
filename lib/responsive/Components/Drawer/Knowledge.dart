@@ -13,7 +13,7 @@ class Knowledge extends StatelessWidget {
           title: "Firebase & Sqlite",
         ),
         KnowledgeItem(
-          title: "Android, IOS, Web & desktop coding",
+          title: "Android, IOS, Web & desktop\ncoding",
         ),
         KnowledgeItem(
           title: "English and portuguese",

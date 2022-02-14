@@ -4,6 +4,7 @@ import 'package:portfolio/Tools/GithubTools.dart';
 import 'package:portfolio/main.dart';
 import 'package:portfolio/responsive/Desktop/Desktop.dart';
 import 'package:portfolio/responsive/ResponsiveLayout.dart';
+import 'package:portfolio/responsive/Tablet/Tablet.dart';
 
 // Dinamic values
 final logo =
@@ -70,7 +71,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     if (done) {
       return ResponsiveLayout(
-          mobileLayout: Container(), desktopLayout: Desktop());
+        mobileLayout: Container(),
+        tabletLayout: Tablet(),
+        desktopLayout: Desktop(),
+      );
     } else {
       return Container(
         color: current_theme.scaffoldBackgroundColor,

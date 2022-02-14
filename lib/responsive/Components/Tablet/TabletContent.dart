@@ -9,14 +9,14 @@ import 'package:portfolio/responsive/Components/Desktop/DesktopProjectContainer.
 import 'package:portfolio/responsive/Components/Desktop/DesktopStats.dart';
 import 'package:portfolio/responsive/Components/StatsBase.dart';
 
-class DesktopContent extends StatefulWidget {
-  const DesktopContent({Key? key}) : super(key: key);
+class TabletContent extends StatefulWidget {
+  const TabletContent({Key? key}) : super(key: key);
 
   @override
-  _DesktopContentState createState() => _DesktopContentState();
+  _TabletContentState createState() => _TabletContentState();
 }
 
-class _DesktopContentState extends State<DesktopContent>
+class _TabletContentState extends State<TabletContent>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _statsAnimation;
@@ -80,11 +80,11 @@ class _DesktopContentState extends State<DesktopContent>
                   height: 48,
                 ),
                 GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: repositories.length,
+                  physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5,
+                      crossAxisCount: width < 1160 ? 3 : 4,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16),
                   itemBuilder: (context, index) {
