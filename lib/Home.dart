@@ -3,8 +3,9 @@ import 'package:github/github.dart';
 import 'package:portfolio/Tools/GithubTools.dart';
 import 'package:portfolio/main.dart';
 import 'package:portfolio/responsive/Desktop/Desktop.dart';
+import 'package:portfolio/responsive/Mobile/Mobile.dart';
 import 'package:portfolio/responsive/ResponsiveLayout.dart';
-import 'package:portfolio/responsive/Tablet/Tablet.dart';
+import 'package:portfolio/responsive/Components/Tablet/Tablet.dart';
 
 // Dinamic values
 final logo =
@@ -22,6 +23,14 @@ final List<Map> knowledgeImages = [
 
 List<Repository> repositories = [];
 late User user;
+
+List<Shadow> defaultShadow = [
+  Shadow(
+    blurRadius: 15.0,
+    color: Colors.black,
+    offset: Offset(5.0, 5.0),
+  ),
+];
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -71,7 +80,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     if (done) {
       return ResponsiveLayout(
-        mobileLayout: Container(),
+        mobileLayout: Mobile(),
         tabletLayout: Tablet(),
         desktopLayout: Desktop(),
       );
