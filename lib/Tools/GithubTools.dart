@@ -4,7 +4,7 @@ import 'dart:convert';
 
 class GithubTools {
   static var github = GitHub(
-    auth: Authentication.withToken("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"),
+    auth: Authentication.withToken(""),
   );
 
   static Stream<Repository> getRepositories(String user) {
