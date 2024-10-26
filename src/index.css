@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+	font-family: 'SF Pro';
+	src: url('../fonts/SFPRODISPLAYREGULAR.OTF');
+}
+
+@font-face {
+	font-family: 'SF Pro';
+	src: url('../fonts/SFPRODISPLAYBOLD.OTF');
+	font-weight: bold;
+}
+
+/* html, */
+/* body, */
+/* #root { */
+/* 	background: black; */
+/* } */
+
+* {
+	font-family: 'SF Pro';
+	margin: 0;
+	padding: 0;
+}
+body {
+	background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+		url('../../public/background1.png') !important;
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	overflow: hidden;
+}
+
+html,
+body,
+.root {
+	height: 100vh;
+	margin: 0;
+	overflow: hidden;
+}
+
+body {
+	overflow-y: scroll;
+}
+
+@supports selector(::-webkit-scrollbar) {
+	::-webkit-scrollbar {
+		width: 8px;
+		background-color: transparent;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 12px;
+		background-color: gray;
+	}
+}
+
+.wavy {
+	animation-name: wavy;
+	animation-duration: 1.3s;
+	animation-timing-function: ease;
+	animation-iteration-count: infinite;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+@keyframes wavy {
+	0% {
+		top: 0px;
+	}
+	50% {
+		top: -15px;
+	}
+	100% {
+		top: 0px;
+	}
+}

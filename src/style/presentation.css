@@ -1,0 +1,114 @@
+* {
+	letter-spacing: 0.05rem;
+	font-family: 'SF Pro';
+	text-align: center;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 100vw;
+	gap: 24px;
+	padding-inline: 16px;
+	background-color: transparent;
+}
+
+main h1 {
+	font-size: 96px;
+	line-height: 110px;
+	font-weight: bold;
+	/* letter-spacing: 0.3rem; */
+	/* color: black; */
+	/* -webkit-text-stroke-color: white; */
+	/* -webkit-text-stroke-width: 2px; */
+	/* pointer-events: none; */
+}
+
+main h2 {
+	font-size: 32px;
+	line-height: 32px;
+	/* vertical-align: text-bottom; */
+	font-weight: normal;
+	text-align: center;
+}
+
+main p {
+	font-size: 18px;
+}
+
+.highlight {
+	font-weight: bold;
+	margin-bottom: 96px;
+	font-size: 48px;
+	text-align: start;
+	/* 	position: absolute; */
+	/* 	top: 25%; */
+}
+
+.emoji {
+	font-size: 32px;
+	/* vertical-align: text-top; */
+}
+
+#skills {
+	max-width: 600px;
+	display: flex;
+	flex-direction: row;
+	align-items: start;
+	justify-content: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+@media (max-width: 650px) {
+	main h1 {
+		font-size: 12vw;
+		line-height: 13.75vw;
+	}
+
+	main h2 {
+		font-size: 4vw;
+		line-height: 4vw;
+	}
+
+	main p {
+		font-size: 4vw;
+	}
+	main {
+		gap: 3vw;
+	}
+
+	* {
+		letter-spacing: 0.05rem;
+	}
+
+	.highlight {
+		margin-bottom: 12vw;
+		font-size: 6vw;
+	}
+
+	.emoji {
+		font-size: 4vw;
+		/* vertical-align: text-top; */
+	}
+
+	#skills {
+		display: flex;
+		flex-direction: row;
+		gap: 1vw;
+		max-width: 80%;
+	}
+}
+
+@media (max-width: 475px) {
+	#skills {
+		max-width: 60%;
+	}
+	.emoji {
+		font-size: 4vw;
+		/* vertical-align: text-top; */
+	}
+}
