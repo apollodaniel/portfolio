@@ -1,22 +1,40 @@
-import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import {
+	createContext,
+	MutableRefObject,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import AboutMeSection from './components/about_me';
 import PresentationSection from './components/presentation';
 import { Button } from '@nextui-org/react';
-import { Outlet, useLocation } from 'react-router-dom';
-import { div } from 'framer-motion/client';
+import { Outlet } from 'react-router-dom';
+import ProjectsSection from './components/projects';
+import { Repository } from './types';
+import { get_repositories } from './functions';
+
+export const RepositoriesContext = createContext<Repository[] | undefined>([]);
 
 function App() {
 	const [showGoTop, setShowGoTop] = useState(false);
 
+	const [repositories, setRepositories] = useState<Repository[] | undefined>(
+		[],
+	);
+
 	const presentationSectionRef = useRef<HTMLElement>();
 	const aboutMeSectionRef = useRef<HTMLElement>();
-	const projectsSectionRef = useRef();
+	const projectsSectionRef = useRef<HTMLElement>();
 
 	const navigateScroll = useRef((path: string) => {
 		switch (path) {
 			case '/about-me':
-				console.log(window.location.pathname);
 				aboutMeSectionRef.current?.scrollIntoView({
+					behavior: 'smooth',
+				});
+				break;
+			case '/projects':
+				projectsSectionRef.current?.scrollIntoView({
 					behavior: 'smooth',
 				});
 				break;
@@ -28,6 +46,16 @@ function App() {
 		}
 	});
 
+	const getRepositories = useRef(async () => {
+		try {
+			const repository_list = await get_repositories();
+
+			setRepositories(repository_list);
+		} catch (err) {
+			setRepositories(undefined);
+		}
+	});
+
 	useEffect(() => {
 		document.body.addEventListener('scroll', (event) => {
 			setShowGoTop(
@@ -36,10 +64,12 @@ function App() {
 			);
 		});
 		navigateScroll.current(window.location.pathname);
+
+		getRepositories.current();
 	}, []);
 
 	return (
-		<>
+		<RepositoriesContext.Provider value={repositories}>
 			{/*
 				 (<PresentationSection/>)
 
@@ -57,6 +87,11 @@ function App() {
 					/>
 					<AboutMeSection
 						ref={aboutMeSectionRef as MutableRefObject<HTMLElement>}
+					/>
+					<ProjectsSection
+						ref={
+							projectsSectionRef as MutableRefObject<HTMLElement>
+						}
 					/>
 				</>
 			)}
@@ -77,7 +112,7 @@ function App() {
 					/>
 				</Button>
 			)}
-		</>
+		</RepositoriesContext.Provider>
 	);
 }
 

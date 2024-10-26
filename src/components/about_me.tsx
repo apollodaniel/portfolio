@@ -9,7 +9,7 @@ const AboutMeSection = forwardRef<HTMLElement, Props>((props, ref) => {
 		<main ref={ref} className="max-lg:p-24 max-md:p-16 max-sm:p-8">
 			<Card
 				isBlurred
-				className="border-none bg-background/60 dark:bg-default-100/50 lg:w-[900px] lg:aspect-1/2"
+				className="border-[rgba(255,255,255,0.1)] border-[1px] bg-background/60 dark:bg-default-100/50 lg:w-[900px] lg:aspect-1/2"
 				shadow="sm"
 			>
 				<CardBody>
