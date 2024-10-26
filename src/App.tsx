@@ -1,10 +1,32 @@
-import { useEffect, useState } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import AboutMeSection from './components/about_me';
 import PresentationSection from './components/presentation';
 import { Button } from '@nextui-org/react';
+import { Outlet, useLocation } from 'react-router-dom';
+import { div } from 'framer-motion/client';
 
 function App() {
 	const [showGoTop, setShowGoTop] = useState(false);
+
+	const presentationSectionRef = useRef<HTMLElement>();
+	const aboutMeSectionRef = useRef<HTMLElement>();
+	const projectsSectionRef = useRef();
+
+	const navigateScroll = useRef((path: string) => {
+		switch (path) {
+			case '/about-me':
+				console.log(window.location.pathname);
+				aboutMeSectionRef.current?.scrollIntoView({
+					behavior: 'smooth',
+				});
+				break;
+			default:
+				presentationSectionRef.current?.scrollIntoView({
+					behavior: 'smooth',
+				});
+				break;
+		}
+	});
 
 	useEffect(() => {
 		document.body.addEventListener('scroll', (event) => {
@@ -13,15 +35,31 @@ function App() {
 					(window.innerHeight / 3) * 2,
 			);
 		});
-	});
+		navigateScroll.current(window.location.pathname);
+	}, []);
+
 	return (
 		<>
 			{/*
 				 (<PresentationSection/>)
 
-			<PresentationSection />
-			<AboutMeSection />
+
 				*/}
+
+			{location.pathname === '/projects/all' ? (
+				<Outlet />
+			) : (
+				<>
+					<PresentationSection
+						ref={
+							presentationSectionRef as MutableRefObject<HTMLElement>
+						}
+					/>
+					<AboutMeSection
+						ref={aboutMeSectionRef as MutableRefObject<HTMLElement>}
+					/>
+				</>
+			)}
 
 			{showGoTop && (
 				<Button

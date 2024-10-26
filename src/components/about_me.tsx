@@ -1,9 +1,12 @@
-import { Card, CardBody, Image, Button, Slider } from '@nextui-org/react';
+import { Card, CardBody, Image } from '@nextui-org/react';
 import '../style/aboutme.css';
+import { forwardRef } from 'react';
 
-export default function AboutMeSection() {
+type Props = {};
+
+const AboutMeSection = forwardRef<HTMLElement, Props>((props, ref) => {
 	return (
-		<main className="max-lg:p-24 max-md:p-16 max-sm:p-8">
+		<main ref={ref} className="max-lg:p-24 max-md:p-16 max-sm:p-8">
 			<Card
 				isBlurred
 				className="border-none bg-background/60 dark:bg-default-100/50 lg:w-[900px] lg:aspect-1/2"
@@ -42,4 +45,6 @@ export default function AboutMeSection() {
 			</Card>
 		</main>
 	);
-}
+});
+
+export default AboutMeSection;

@@ -1,8 +1,16 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import {
+	forwardRef,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from 'react';
 import '../style/presentation.css';
 import { Chip } from '@nextui-org/chip';
 
-function PresentationSection() {
+type Props = {};
+
+const PresentationSection = forwardRef<HTMLElement, Props>((props, ref) => {
 	const [width, setWidth] = useState(window.innerWidth);
 
 	useLayoutEffect(() => {
@@ -32,7 +40,7 @@ function PresentationSection() {
 	}, []);
 
 	return (
-		<main>
+		<main ref={ref}>
 			<div>
 				<h2 className="highlight">
 					{text.split('').map((letter, index) => (
@@ -84,6 +92,6 @@ function PresentationSection() {
 			</div>
 		</main>
 	);
-}
+});
 
 export default PresentationSection;
