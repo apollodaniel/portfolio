@@ -12,6 +12,7 @@ import { Outlet } from 'react-router-dom';
 import ProjectsSection from './components/projects';
 import { Repository } from './types';
 import { get_repositories } from './functions';
+import ContactSection from './components/contact';
 
 export const RepositoriesContext = createContext<Repository[] | undefined>([]);
 
@@ -24,10 +25,12 @@ function App() {
 
 	const presentationSectionRef = useRef<HTMLElement>();
 	const aboutMeSectionRef = useRef<HTMLElement>();
+	const contactSectionRef = useRef<HTMLElement>();
 	const projectsSectionRef = useRef<HTMLElement>();
 
 	const navigateScroll = useRef((path: string) => {
 		switch (path) {
+			// order presentation - about-me  - projects
 			case '/about-me':
 				aboutMeSectionRef.current?.scrollIntoView({
 					behavior: 'smooth',
@@ -35,6 +38,11 @@ function App() {
 				break;
 			case '/projects':
 				projectsSectionRef.current?.scrollIntoView({
+					behavior: 'smooth',
+				});
+				break;
+			case '/contact':
+				contactSectionRef.current?.scrollIntoView({
 					behavior: 'smooth',
 				});
 				break;
@@ -68,6 +76,12 @@ function App() {
 		getRepositories.current();
 	}, []);
 
+	useEffect(() => {
+		if (window.location.pathname === '/projects') {
+			projectsSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+		}
+	}, [repositories]);
+
 	return (
 		<RepositoriesContext.Provider value={repositories}>
 			{/*
@@ -92,6 +106,9 @@ function App() {
 						ref={
 							projectsSectionRef as MutableRefObject<HTMLElement>
 						}
+					/>
+					<ContactSection
+						ref={contactSectionRef as MutableRefObject<HTMLElement>}
 					/>
 				</>
 			)}

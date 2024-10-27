@@ -1,7 +1,15 @@
 import { forwardRef, MutableRefObject, useEffect, useState } from 'react';
 import { RepositoriesContext } from '../App';
-import { Button, Card, CardBody, CardHeader, Image } from '@nextui-org/react';
+import {
+	Button,
+	Card,
+	CardBody,
+	CardHeader,
+	Image,
+	Skeleton,
+} from '@nextui-org/react';
 import { get_youtube_embbed_url } from '../functions';
+import { Repository } from '../types';
 
 type Props = {};
 
@@ -38,7 +46,7 @@ const ProjectsSection = forwardRef<HTMLElement, Props>((props, ref) => {
 									Ver todos os projetos
 								</Button>
 							</CardHeader>
-							<CardBody className="flex-row flex-wrap items-center justify-center max-w-[80vw] gap-3">
+							<CardBody className=" flex-row flex-wrap items-center justify-center max-w-[80vw] gap-3">
 								{!vl ? (
 									<p className="font-small">
 										⚠️ Houve um{' '}
@@ -49,30 +57,40 @@ const ProjectsSection = forwardRef<HTMLElement, Props>((props, ref) => {
 										<b>Tente novamente</b> mais tarde.
 									</p>
 								) : vl.length === 0 ? (
-									<div className="flex-col gap-2 max-w-[400px]">
-										<p className="text-[20px]">
-											Nenhum projeto encontrado 😕
-										</p>
-										<small>
-											A API usada para buscar os projetos
-											está hosteada em um serviço
-											gratuito, logo pode ser um pouco
-											lenta as vezes, tente esperar até 10
-											segundos.
-										</small>
-									</div>
+									<ProjectListSkeleton />
 								) : (
 									vl
-										.sort((a, b) =>
-											a.marked ||
-											b.marked ||
-											a.preview_image ||
-											b.preview_image ||
-											a.embbed_video ||
-											b.embbed_video
-												? 1
-												: 0,
-										)
+										.sort((a, b) => {
+											// Priority for items with `embedVideo` (highest priority)
+											if (a.marked && !b.marked)
+												return -1;
+											if (!a.marked && b.marked) return 1;
+											if (
+												a.embbed_video &&
+												!b.embbed_video
+											)
+												return -1;
+											if (
+												!a.embbed_video &&
+												b.embbed_video
+											)
+												return 1;
+
+											// Priority for items with `previewImage` (only if both lack `embbed_video`)
+											if (
+												a.preview_image &&
+												!b.preview_image
+											)
+												return -1;
+											if (
+												!a.preview_image &&
+												b.preview_image
+											)
+												return 1;
+
+											// No sorting needed if both items have the same properties
+											return 0;
+										})
 										.slice(
 											0,
 											size[0] < 600 && size[1] < 600
@@ -80,29 +98,7 @@ const ProjectsSection = forwardRef<HTMLElement, Props>((props, ref) => {
 												: 3,
 										)
 										.map((repo) => (
-											<Card className="lg:w-[300px] max-lg:w-[200px] aspect-square">
-												<CardBody>
-													{repo.embbed_video ? (
-														<iframe
-															className="rounded-[12px]"
-															src={
-																repo.embbed_video
-															}
-															title={`${repo.name} project preview`}
-															allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-														></iframe>
-													) : repo.preview_image ? (
-														<Image
-															title={repo.name}
-															src={
-																repo.preview_image
-															}
-														/>
-													) : (
-														<div></div>
-													)}
-												</CardBody>
-											</Card>
+											<ProjectWrapper repo={repo} />
 										))
 								)}
 							</CardBody>
@@ -113,5 +109,83 @@ const ProjectsSection = forwardRef<HTMLElement, Props>((props, ref) => {
 		/>
 	);
 });
+
+function ProjectWrapper({ repo }: { repo: Repository }) {
+	// default is undefined
+	let previewElement;
+
+	if (repo.embbed_video) {
+		previewElement = (
+			<iframe
+				className="w-full p-0 m-0 aspect-[16/9]"
+				src={repo.embbed_video}
+				title={`${repo.name} project preview`}
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			></iframe>
+		);
+	} else if (repo.preview_image) {
+		previewElement = (
+			<Image
+				className="w-full p-0 m-0 object-cover aspect-[16/9] rounded-[0px]"
+				title={repo.name}
+				src={repo.preview_image}
+			/>
+		);
+	}
+
+	return (
+		<Card
+			isPressable
+			isHoverable
+			isBlurred
+			onPress={() => {
+				window.open(repo.url);
+			}}
+			className="lg:w-[300px] max-lg:w-[200px] aspect-square bg-background/80 border-[rgba(255,255,255,0.1)] border-[1px]"
+		>
+			<CardBody className="p-0">
+				{previewElement}
+
+				<div className="p-2">
+					<h3 className="text-[22px] max-lg:text-[16px] font-bold">
+						{repo.name}
+					</h3>
+					<p className="max-lg:text-[12px]">{repo.description}</p>
+				</div>
+			</CardBody>
+		</Card>
+	);
+}
+
+function ProjectListSkeleton() {
+	return Array.from(
+		(function* () {
+			for (let i = 0; i < 3; i++) {
+				yield (
+					<Card
+						key={i} // Add a unique key for each item
+						className="lg:w-[300px] max-lg:w-[200px] aspect-square space-y-5 p-4 bg-background/80 border-[rgba(255,255,255,0.1)] border-[1px]"
+						radius="lg"
+					>
+						<Skeleton className="rounded-lg">
+							<div className="h-24 rounded-lg bg-default-300"></div>
+						</Skeleton>
+						<div className="space-y-3">
+							<Skeleton className="w-3/5 rounded-lg">
+								<div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
+							</Skeleton>
+							<Skeleton className="w-4/5 rounded-lg">
+								<div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
+							</Skeleton>
+							<Skeleton className="w-2/5 rounded-lg">
+								<div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
+							</Skeleton>
+						</div>
+					</Card>
+				);
+			}
+		})(),
+	);
+}
 
 export default ProjectsSection;

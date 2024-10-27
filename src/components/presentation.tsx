@@ -71,7 +71,10 @@ const PresentationSection = forwardRef<HTMLElement, Props>((props, ref) => {
 				</h1>
 			</div>
 
-			<p>Sou um desenvolvedor backend/fullstack com expêriencia em</p>
+			<p>
+				Sou um desenvolvedor <b>backend/fullstack</b> com{' '}
+				<b>expêriencia em</b>
+			</p>
 
 			<div id="skills">
 				<Chip size={width > 650 ? 'lg' : width > 450 ? 'md' : 'sm'}>

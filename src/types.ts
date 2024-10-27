@@ -28,7 +28,7 @@ export class Repository {
 				.replace('>', '');
 		}
 
-		const match_preview = description.match(/\$[a-zA-z0-9]+/);
+		const match_preview = description.match(/\$\S+/);
 		if (match_preview) {
 			this.preview_image = match_preview[0].substring(
 				1,
@@ -40,7 +40,10 @@ export class Repository {
 			description.indexOf('<'),
 			description.indexOf('$'),
 			description.indexOf('#'),
-		].filter((v) => v != -1);
+		]
+			.filter((v) => v != -1)
+			.sort();
+
 		const _description = description.substring(
 			0,
 			keyword_indexes[0] || description.length,
