@@ -10,6 +10,7 @@ import {
 } from '@nextui-org/react';
 import { get_youtube_embbed_url } from '../functions';
 import { Repository } from '../types';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {};
 
@@ -24,6 +25,8 @@ const ProjectsSection = forwardRef<HTMLElement, Props>((props, ref) => {
 			setSize([window.innerWidth, window.innerHeight]);
 		});
 	}, []);
+
+	const navigate = useNavigate();
 
 	return (
 		<RepositoriesContext.Consumer
@@ -42,11 +45,14 @@ const ProjectsSection = forwardRef<HTMLElement, Props>((props, ref) => {
 								<Button
 									className="text-center flex flex-col items-center justify-center mt-[8px] h-[50px]"
 									variant="light"
+									onClick={() => {
+										navigate('/projects/all');
+									}}
 								>
 									Ver todos os projetos
 								</Button>
 							</CardHeader>
-							<CardBody className=" flex-row flex-wrap items-center justify-center max-w-[80vw] gap-3">
+							<CardBody className=" flex-row flex-wrap items-center justify-center max-w-[80vw] max-sm:max-w-[95vw] gap-3">
 								{!vl ? (
 									<p className="font-small">
 										⚠️ Houve um{' '}
@@ -60,37 +66,7 @@ const ProjectsSection = forwardRef<HTMLElement, Props>((props, ref) => {
 									<ProjectListSkeleton />
 								) : (
 									vl
-										.sort((a, b) => {
-											// Priority for items with `embedVideo` (highest priority)
-											if (a.marked && !b.marked)
-												return -1;
-											if (!a.marked && b.marked) return 1;
-											if (
-												a.embbed_video &&
-												!b.embbed_video
-											)
-												return -1;
-											if (
-												!a.embbed_video &&
-												b.embbed_video
-											)
-												return 1;
-
-											// Priority for items with `previewImage` (only if both lack `embbed_video`)
-											if (
-												a.preview_image &&
-												!b.preview_image
-											)
-												return -1;
-											if (
-												!a.preview_image &&
-												b.preview_image
-											)
-												return 1;
-
-											// No sorting needed if both items have the same properties
-											return 0;
-										})
+										.sort(sortRepos)
 										.slice(
 											0,
 											size[0] < 600 && size[1] < 600
@@ -109,6 +85,21 @@ const ProjectsSection = forwardRef<HTMLElement, Props>((props, ref) => {
 		/>
 	);
 });
+
+export function sortRepos(a: Repository, b: Repository): number {
+	// Priority for items with `embedVideo` (highest priority)
+	if (a.marked && !b.marked) return -1;
+	if (!a.marked && b.marked) return 1;
+	if (a.embbed_video && !b.embbed_video) return -1;
+	if (!a.embbed_video && b.embbed_video) return 1;
+
+	// Priority for items with `previewImage` (only if both lack `embbed_video`)
+	if (a.preview_image && !b.preview_image) return -1;
+	if (!a.preview_image && b.preview_image) return 1;
+
+	// No sorting needed if both items have the same properties
+	return b.description.length - a.description.length;
+}
 
 function ProjectWrapper({ repo }: { repo: Repository }) {
 	// default is undefined
@@ -141,26 +132,28 @@ function ProjectWrapper({ repo }: { repo: Repository }) {
 			onPress={() => {
 				window.open(repo.url);
 			}}
-			className="lg:w-[300px] max-lg:w-[200px] aspect-square bg-background/80 border-[rgba(255,255,255,0.1)] border-[1px]"
+			className="lg:w-[300px] max-lg:w-[200px] aspect-square  bg-background/80 border-[rgba(255,255,255,0.1)] border-[1px]"
 		>
 			<CardBody className="p-0">
 				{previewElement}
 
 				<div className="p-2">
-					<h3 className="text-[22px] max-lg:text-[16px] font-bold">
+					<h3 className="text-[22px] max-lg:text-[16px] font-bold truncate">
 						{repo.name}
 					</h3>
-					<p className="max-lg:text-[12px]">{repo.description}</p>
+					<p className="max-lg:text-[12px] may-wrap supports-[-webkit-line-clamp]:line-clamp-2">
+						{repo.description}
+					</p>
 				</div>
 			</CardBody>
 		</Card>
 	);
 }
 
-function ProjectListSkeleton() {
+export function ProjectListSkeleton({ count }: { count?: number }) {
 	return Array.from(
 		(function* () {
-			for (let i = 0; i < 3; i++) {
+			for (let i = 0; i < (count || 3); i++) {
 				yield (
 					<Card
 						key={i} // Add a unique key for each item

@@ -24,25 +24,20 @@
 	margin: 0;
 	padding: 0;
 }
-body {
-	background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
-		url('../../public/background1.png') !important;
-	background-attachment: fixed;
-	background-size: cover;
-	background-position: center;
-	overflow: hidden;
-}
+/*html {*/
+/*	background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),*/
+/*		url('../../public/background1.png');*/
+/*	background-attachment: fixed;*/
+/*	background-size: cover;*/
+/*	background-position: center;*/
+/*}*/
 
 html,
 body,
-.root {
+#root {
 	height: 100vh;
+	/*overflow: hidden; /* prevents double scrollbars */
 	margin: 0;
-	overflow: hidden;
-}
-
-body {
-	overflow-y: scroll;
 }
 
 @supports selector(::-webkit-scrollbar) {
@@ -75,5 +70,13 @@ body {
 	}
 	100% {
 		top: 0px;
+	}
+}
+
+@supports not (-webkit-line-clamp: 3) {
+	.may-wrap {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 }

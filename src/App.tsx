@@ -113,19 +113,19 @@ function App() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const menuItems = [
-		{ name: 'Home', path: '/' },
-		{ name: 'About me', path: '/about-me' },
+		{ name: 'Início', path: '/' },
+		{ name: 'Sobre mim', path: '/about-me' },
 		{
-			name: 'Projects',
+			name: 'Projetos',
 			path: '/projects',
 			children: [
 				{
-					name: 'All projects',
+					name: 'Todos os projetos',
 					path: '/projects/all',
 				},
 			],
 		},
-		{ name: 'Contact', path: '/contact' },
+		{ name: 'Contato', path: '/contact' },
 	];
 
 	const navigate = useNavigate();
@@ -176,8 +176,8 @@ function App() {
 														(child) =>
 															child.path ===
 															location.pathname,
-													)?.name || 'Projects'
-												: 'Projects'}
+													)?.name || item.name
+												: item.name}
 											<FontAwesomeIcon
 												className="ms-1"
 												icon={ArrowIcon}
@@ -187,18 +187,19 @@ function App() {
 								</NavbarItem>
 								<DropdownMenu>
 									{[item, ...item.children].map((child) => (
-										<DropdownItem>
+										<DropdownItem
+											onClick={() => {
+												navigate(child.path);
+											}}
+										>
 											<Link
-												className="cursor-pointer"
+												className="cursor-pointer pointer-events-none"
 												color={
 													location.pathname ===
 													child.path
 														? 'primary'
 														: 'foreground'
 												}
-												onClick={() => {
-													navigate(child.path);
-												}}
 											>
 												{child.name}
 											</Link>
@@ -250,8 +251,8 @@ function App() {
 														(child) =>
 															child.path ===
 															location.pathname,
-													)?.name || 'Projects'
-												: 'Projects'}
+													)?.name || item.name
+												: item.name}
 										</Link>
 									}
 								>
@@ -299,7 +300,7 @@ function App() {
 			{location.pathname === '/projects/all' ? (
 				<Outlet />
 			) : (
-				<>
+				<div className="overflow-hidden">
 					<PresentationSection
 						ref={
 							presentationSectionRef as MutableRefObject<HTMLElement>
@@ -316,7 +317,7 @@ function App() {
 					<ContactSection
 						ref={contactSectionRef as MutableRefObject<HTMLElement>}
 					/>
-				</>
+				</div>
 			)}
 
 			{showGoTop && (
@@ -335,6 +336,10 @@ function App() {
 					/>
 				</Button>
 			)}
+			<img
+				src="../../public/background1.png"
+				className="w-full h-[100vh] object-cover z-[-10000] overflow-hidden opacity-15 fixed top-0 left-0"
+			/>
 		</RepositoriesContext.Provider>
 	);
 }
