@@ -1,50 +1,91 @@
-# React + TypeScript + Vite
+# Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is my own portfolio made in Typescript, React, React Router, NextUI, and TailwindCSS.
 
-Currently, two official plugins are available:
+> This is a single page application (SPA).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### [Versão em Português](#portfólio--explicação-em-português-)
 
-## Expanding the ESLint configuration
+## Navigation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The portfolio consists of two screens:
 
-- Configure the top-level `parserOptions` property like this:
+-   `/` -> Main Screen
+-   `/projects/all` -> All Projects List
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Routes
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+The routes available are:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+#### Main Screen
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+-   `/` -> Presentation section
+-   `/about-me` -> Detailed info about me
+-   `/projects` -> Best Projects section
+-   `/contact` -> Contact section
+
+#### All Projects Screen
+
+-   `/projects/all` -> All Projects list
+
+As you can see, most routes are sections within the main screen.
+When navigating to a main screen route, the screen will automatically scroll to the relevant section.
+
+> [!WARNING]
+> Manually scrolling to other sections does not change the route.
+
+## Projects
+
+The projects are fetched using the [Github Scraper API](https://github.com/apollodaniel/github-scraper-api) created by me.
+This API retrieves profile information and repositories based on a username.
+
+Projects can be viewed on the `/projects` route, and all projects are listed under `/projects/all`.
+
+> The API URL used in this project points to my own hosted version. Change the URL before use.
+> The CORS policy restricts access to my hosted portfolio URL only.
+
+---
+
+## Portfólio ( Explicação em Português )
+
+Este é meu portfólio pessoal, desenvolvido em Typescript, React, React Router, NextUI e TailwindCSS.
+
+> Este é um aplicativo de página única (SPA).
+
+## Navegação
+
+O portfólio consiste em duas telas:
+
+-   `/` -> Tela Principal
+-   `/projects/all` -> Lista de Todos os Projetos
+
+### Rotas
+
+As rotas disponíveis são:
+
+#### Tela Principal
+
+-   `/` -> Seção de Apresentação ( Início )
+-   `/about-me` -> Informações detalhadas sobre mim
+-   `/projects` -> Seção dos Melhores Projetos
+-   `/contact` -> Seção de Contato
+
+#### Tela de Todos os Projetos
+
+-   `/projects/all` -> Lista de Todos os Projetos
+
+Como você pode ver, a maioria das rotas são seções na tela principal.
+Ao navegar para uma rota da tela principal, a tela rolará automaticamente para a seção escolhida.
+
+> [!WARNING]
+> Rolar manualmente para outras seções não altera a rota.
+
+## Projetos
+
+Os projetos são obtidos usando a [Github Scraper API](https://github.com/apollodaniel/github-scraper-api), criada por mim.
+Esta API recupera informações de perfil e repositórios usando um nome de usuário.
+
+Os projetos podem ser visualizados na rota `/projects`, e todos os projetos estão listados em `/projects/all`.
+
+> A URL da API usada neste projeto aponta para minha versão hospedada. Altere a URL antes de usar.
+> A política de CORS da API restrinje o acesso apenas à URL do portfólio hospedado.
