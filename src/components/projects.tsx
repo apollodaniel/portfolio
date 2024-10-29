@@ -1,5 +1,4 @@
-import { forwardRef, MutableRefObject, useEffect, useState } from 'react';
-import { RepositoriesContext } from '../App';
+import { forwardRef, useEffect, useState } from 'react';
 import {
 	Button,
 	Card,
@@ -8,13 +7,14 @@ import {
 	Image,
 	Skeleton,
 } from '@nextui-org/react';
-import { get_youtube_embbed_url } from '../functions';
 import { Repository } from '../types';
 import { useNavigate } from 'react-router-dom';
 
-type Props = {};
+type Props = {
+	repos: Repository[] | undefined;
+};
 
-const ProjectsSection = forwardRef<HTMLElement, Props>((props, ref) => {
+const ProjectsSection = forwardRef<HTMLElement, Props>(({ repos }, ref) => {
 	const [size, setSize] = useState<[number, number]>([
 		window.innerWidth,
 		window.innerHeight,
@@ -29,60 +29,44 @@ const ProjectsSection = forwardRef<HTMLElement, Props>((props, ref) => {
 	const navigate = useNavigate();
 
 	return (
-		<RepositoriesContext.Consumer
-			children={(vl) => {
-				return (
-					<main ref={ref} className="h-[100vh] w-[100vw]">
-						<Card
-							isBlurred
-							className=" border-[rgba(255,255,255,0.1)] border-[1px] bg-background/60 dark:bg-default-100/50"
-							shadow="sm"
-						>
-							<CardHeader className=" flex-row max-md:flex-col justify-between items-center align-middle">
-								<h2 className="text-center text-[32px] max-md:text-[24px] mt-[8px]  max-sm:text-[20px]">
-									Meus projetos ✅
-								</h2>
-								<Button
-									className="text-center flex flex-col items-center justify-center mt-[8px] h-[50px]"
-									variant="light"
-									onClick={() => {
-										navigate('/projects/all');
-									}}
-								>
-									Ver todos os projetos
-								</Button>
-							</CardHeader>
-							<CardBody className=" flex-row flex-wrap items-center justify-center max-w-[80vw] max-sm:max-w-[95vw] gap-3">
-								{!vl ? (
-									<p className="font-small">
-										⚠️ Houve um{' '}
-										<span className="text-danger font-bold">
-											erro
-										</span>{' '}
-										ao obter a lista de projetos. <br />
-										<b>Tente novamente</b> mais tarde.
-									</p>
-								) : vl.length === 0 ? (
-									<ProjectListSkeleton />
-								) : (
-									vl
-										.sort(sortRepos)
-										.slice(
-											0,
-											size[0] < 600 && size[1] < 600
-												? 2
-												: 3,
-										)
-										.map((repo) => (
-											<ProjectWrapper repo={repo} />
-										))
-								)}
-							</CardBody>
-						</Card>
-					</main>
-				);
-			}}
-		/>
+		<main ref={ref} className="h-[100vh] w-[100vw]">
+			<Card
+				className=" border-[rgba(255,255,255,0.1)] border-[1px] bg-background/60 dark:bg-default-100/50"
+				shadow="sm"
+			>
+				<CardHeader className=" flex-row max-md:flex-col justify-between items-center align-middle">
+					<h2 className="text-center text-[32px] max-md:text-[24px] mt-[8px]  max-sm:text-[20px]">
+						Meus projetos ✅
+					</h2>
+					<Button
+						className="text-center flex flex-col items-center justify-center mt-[8px] h-[50px]"
+						variant="light"
+						onClick={() => {
+							navigate('/projects/all');
+						}}
+					>
+						Ver todos os projetos
+					</Button>
+				</CardHeader>
+				<CardBody className=" flex-row flex-wrap items-center justify-center max-w-[80vw] max-sm:max-w-[95vw] gap-3">
+					{!repos ? (
+						<p className="font-small">
+							⚠️ Houve um{' '}
+							<span className="text-danger font-bold">erro</span>{' '}
+							ao obter a lista de projetos. <br />
+							<b>Tente novamente</b> mais tarde.
+						</p>
+					) : repos.length === 0 ? (
+						<ProjectListSkeleton />
+					) : (
+						repos
+							.sort(sortRepos)
+							.slice(0, size[0] < 600 && size[1] < 600 ? 2 : 3)
+							.map((repo) => <ProjectWrapper repo={repo} />)
+					)}
+				</CardBody>
+			</Card>
+		</main>
 	);
 });
 
@@ -128,7 +112,6 @@ function ProjectWrapper({ repo }: { repo: Repository }) {
 		<Card
 			isPressable
 			isHoverable
-			isBlurred
 			onPress={() => {
 				window.open(repo.url);
 			}}

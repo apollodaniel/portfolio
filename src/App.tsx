@@ -32,7 +32,9 @@ import ContactSection from './components/contact';
 import { faAngleDown as ArrowIcon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const RepositoriesContext = createContext<Repository[] | undefined>([]);
+export type OutletContextType = {
+	repositories: Repository[] | undefined;
+};
 
 function App() {
 	const [showGoTop, setShowGoTop] = useState(false);
@@ -136,13 +138,13 @@ function App() {
 	}, [location]);
 
 	return (
-		<RepositoriesContext.Provider value={repositories}>
-			{/*
-				 (<PresentationSection/>)
-
-
-				*/}
-			<Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+		<div>
+			<Navbar
+				isBlurred={false}
+				className="bg-transparent"
+				isMenuOpen={isMenuOpen}
+				onMenuOpenChange={setIsMenuOpen}
+			>
 				<NavbarContent>
 					<NavbarMenuToggle
 						aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -298,7 +300,9 @@ function App() {
 				</NavbarMenu>
 			</Navbar>
 			{location.pathname === '/projects/all' ? (
-				<Outlet />
+				<Outlet
+					context={{ repositories } satisfies OutletContextType}
+				/>
 			) : (
 				<div className="overflow-hidden">
 					<PresentationSection
@@ -313,6 +317,7 @@ function App() {
 						ref={
 							projectsSectionRef as MutableRefObject<HTMLElement>
 						}
+						repos={repositories}
 					/>
 					<ContactSection
 						ref={contactSectionRef as MutableRefObject<HTMLElement>}
@@ -340,7 +345,7 @@ function App() {
 				src="../../public/background1.png"
 				className="w-full h-[100vh] object-cover z-[-10000] overflow-hidden opacity-15 fixed top-0 left-0"
 			/>
-		</RepositoriesContext.Provider>
+		</div>
 	);
 }
 
