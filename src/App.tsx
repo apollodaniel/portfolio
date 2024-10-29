@@ -342,7 +342,7 @@ function App() {
 				</Button>
 			)}
 			<img
-				src="../../public/background1.png"
+				src="/background1.png"
 				className="w-full h-[100vh] object-cover z-[-10000] overflow-hidden opacity-15 fixed top-0 left-0"
 			/>
 		</div>
